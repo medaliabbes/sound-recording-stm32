@@ -5,17 +5,7 @@ volatile uint8_t FatFsCnt = 0;
 volatile uint8_t Timer1, Timer2;
 uint16_t count = 0,count1 = 0;
 
-static void fill_audio_buff(PCM16_stereo_t * audio,uint16_t * tab,uint8_t start,uint8_t end)
-{
-    for(uint8_t i = start;i<end;i++)
-    {
-        /*
-            this shift operation is for  amplification 
-        */
-        audio[i].left = tab[i]<<3;
-        audio[i].right = tab[i]<<3;
-    }
-} 
+static void fill_audio_buff(PCM16_stereo_t * audio,uint16_t * tab,uint8_t start,uint8_t end) ;
 
 FATFS fs; 
 FIL fil;
@@ -100,6 +90,18 @@ int main(void)
         goto loop;
 
 }
+
+static void fill_audio_buff(PCM16_stereo_t * audio,uint16_t * tab,uint8_t start,uint8_t end)
+{
+    for(uint8_t i = start;i<end;i++)
+    {
+        /*
+            this shift operation is for  amplification 
+        */
+        audio[i].left = tab[i]<<3;
+        audio[i].right = tab[i]<<3;
+    }
+} 
 
 
 void gpio_init(void)
